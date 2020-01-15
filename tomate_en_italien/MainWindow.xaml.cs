@@ -21,65 +21,32 @@ namespace tomate_en_italien
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static DateTime end = DateTime.Now.AddMinutes(25);
-        private static Boolean pause = false;
-        private static DateTime pauseTime = DateTime.Now;
 
-        private static DispatcherTimer dispatcherTimer;
-        private static TimerPomo monTimer;
+        private static DispatcherTimer MonDispatcheTimer;
+        private static TimerPomo MonTimer;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            //  DispatcherTimer setup
-            DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            dispatcherTimer.Start();
         }
 
-        private void dispatcherTimer_Tick(object sender, EventArgs e) {
-
-            // Updating the Label which displays the timer
-            if (DateTime.Now.CompareTo(end) == -1) { 
-                if (pause == false) {
-                    var time = end.Subtract(DateTime.Now);
-                    lblView.Content = String.Concat(time.Minutes.ToString("00"), ":", time.Seconds.ToString("00"));
-                    var timeLeftSeconds = time.Minutes * 60 + time.Seconds;
-                    var timeSpend = 25 * 60 - timeLeftSeconds;
-                    ProgressBarTimeLeft.Value = timeSpend * 100 / (25 * 60);
-                }
-            } else {
-                lblView.Content = "C'est fini !";
-            }
-
-            // Forcing the CommandManager to raise the RequerySuggested event
-            CommandManager.InvalidateRequerySuggested();
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            /*if (dispatcherTimer == null)
+            // Si toujours pas de timer de lancé
+            if (MonDispatcheTimer == null)
             {
-                dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-                monTimer = new TimerPomo("Développement", util.TypeTimer.Work);
-                monTimer.HandleChrono(dispatcherTimer, lblView);
+                btnPause.Content = "Pause";
+                // On lance un timer
+                MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
+                MonTimer = new TimerPomo("Développement", 25, util.TypeTimer.Work);
+                MonTimer.HandleChrono(MonDispatcheTimer, lblView, ProgressBarTimeLeft);
             }
             else
             {
-                monTimer.setPause();
-            }*/
-            if (pause == false) {
-                pause = true;
-                pauseTime = DateTime.Now;
-                btnPause.Content = "Play";
-            } else { 
-                pause = false;
-                var diff = DateTime.Now.Subtract(pauseTime);
-                end = end.Add(diff);
-                btnPause.Content = "Pause";
+                MonTimer.setPause(btnPause);
             }
         }
+
     }
 }
