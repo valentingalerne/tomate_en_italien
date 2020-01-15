@@ -25,6 +25,9 @@ namespace tomate_en_italien
         private static Boolean pause = false;
         private static DateTime pauseTime = DateTime.Now;
 
+        private static DispatcherTimer dispatcherTimer;
+        private static TimerPomo monTimer;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -57,15 +60,25 @@ namespace tomate_en_italien
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            /*if (dispatcherTimer == null)
+            {
+                dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+                monTimer = new TimerPomo("Développement", util.TypeTimer.Work);
+                monTimer.HandleChrono(dispatcherTimer, lblView);
+            }
+            else
+            {
+                monTimer.setPause();
+            }*/
             if (pause == false) {
                 pause = true;
                 pauseTime = DateTime.Now;
-                lblPause.Content = "Play";
+                btnPause.Content = "Play";
             } else { 
                 pause = false;
                 var diff = DateTime.Now.Subtract(pauseTime);
                 end = end.Add(diff);
-                lblPause.Content = "Pause";
+                btnPause.Content = "Pause";
             }
         }
     }
