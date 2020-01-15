@@ -9,6 +9,7 @@
     <Grid>
         <Label Content="25:00" x:Name="lblView" HorizontalAlignment="Center" VerticalAlignment="Center" Height="74" Width="98" FontSize="36"/>
         <Button Content="Pause" x:Name="lblPause" HorizontalAlignment="Center" Margin="0,259,0,0" VerticalAlignment="Top" Height="34" Width="66" Click="Button_Click"/>
+        <ProgressBar x:Name="ProgressBarTimeLeft" HorizontalAlignment="Center" Height="27" Margin="0,342,0,0" VerticalAlignment="Top" Width="232"/>
 
     </Grid>
 </Window>

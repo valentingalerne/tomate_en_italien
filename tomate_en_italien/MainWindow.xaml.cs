@@ -42,7 +42,10 @@ namespace tomate_en_italien
             if (DateTime.Now.CompareTo(end) == -1) { 
                 if (pause == false) {
                     var time = end.Subtract(DateTime.Now);
-                    lblView.Content = String.Concat(time.Minutes, ":", time.Seconds);
+                    lblView.Content = String.Concat(time.Minutes.ToString("00"), ":", time.Seconds.ToString("00"));
+                    var timeLeftSeconds = time.Minutes * 60 + time.Seconds;
+                    var timeSpend = 25 * 60 - timeLeftSeconds;
+                    ProgressBarTimeLeft.Value = timeSpend * 100 / (25 * 60);
                 }
             } else {
                 lblView.Content = "C'est fini !";
