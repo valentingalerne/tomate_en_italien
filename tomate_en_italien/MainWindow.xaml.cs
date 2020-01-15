@@ -22,6 +22,8 @@ namespace tomate_en_italien
     public partial class MainWindow : Window
     {
         private static DateTime end = DateTime.Now.AddMinutes(25);
+        private static Boolean pause = false;
+        private static DateTime pauseTime = DateTime.Now;
 
         public MainWindow()
         {
@@ -38,14 +40,30 @@ namespace tomate_en_italien
 
             // Updating the Label which displays the timer
             if (DateTime.Now.CompareTo(end) == -1) { 
-                var time = end.Subtract(DateTime.Now);
-                lblView.Content = String.Concat(time.Minutes, ":", time.Seconds);
+                if (pause == false) {
+                    var time = end.Subtract(DateTime.Now);
+                    lblView.Content = String.Concat(time.Minutes, ":", time.Seconds);
+                }
             } else {
                 lblView.Content = "C'est fini !";
             }
 
             // Forcing the CommandManager to raise the RequerySuggested event
             CommandManager.InvalidateRequerySuggested();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (pause == false) {
+                pause = true;
+                pauseTime = DateTime.Now;
+                lblPause.Content = "Play";
+            } else { 
+                pause = false;
+                var diff = DateTime.Now.Subtract(pauseTime);
+                end = end.Add(diff);
+                lblPause.Content = "Pause";
+            }
         }
     }
 }
