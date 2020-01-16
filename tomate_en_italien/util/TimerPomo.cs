@@ -8,7 +8,7 @@ namespace tomate_en_italien
 {
     class TimerPomo
     {
-        private string Name { get; }
+        public string Name { get; set; }
 
         public Boolean pause { get; set; }
 
@@ -20,9 +20,8 @@ namespace tomate_en_italien
         private ProgressBar ProgressBarTimeLeft { get; set; }
 
 
-        public TimerPomo(string TimerName,int TimeInMinute, util.TypeTimer TimerType)
+        public TimerPomo(int TimeInMinute, util.TypeTimer TimerType)
         {
-            this.Name = TimerName;
             this.Type = TimerType;
             this.DateStart = DateTime.Now;
             this.DateEnd = DateTime.Now.AddMinutes(TimeInMinute);
@@ -75,8 +74,8 @@ namespace tomate_en_italien
                 DateEnd = DateEnd.Add(diff);
                 btnPause.Content = "Pause";
             }
-            
-            
+
+
         }
     }
 }
