@@ -36,7 +36,7 @@ namespace tomate_en_italien
         }
 
         public void HandleChrono(System.Windows.Threading.DispatcherTimer dispatcherTimer, Label lblChrono, ProgressBar ProgressBarTimeLeft)
-        {
+        {   
             this.DateStart = DateTime.Now;
             this.DateEnd = DateTime.Now.AddMinutes(this.TimerTime);
             this.Started = true;

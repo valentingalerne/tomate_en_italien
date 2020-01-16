@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Task = tomate_en_italien.util.Task;
 
 namespace tomate_en_italien
 {
@@ -31,6 +32,7 @@ namespace tomate_en_italien
             MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
             MonTimer = new TimerPomo("Développement", 15, util.TypeTimer.Work);
             MonTimer.setLabelChrono(lblView);
+
         }
 
 
@@ -39,6 +41,8 @@ namespace tomate_en_italien
             // Si toujours pas de timer de lancé
             if (!MonTimer.isStart())
             {
+                btnPause.Content = "Pause";
+                lblView.Content = "14:59";
                 // On lance le timer
                 MonTimer.HandleChrono(MonDispatcheTimer, lblView, ProgressBarTimeLeft);
             }
@@ -48,5 +52,11 @@ namespace tomate_en_italien
             }
         }
 
+        private void btnLoadDb_Click(object sender, RoutedEventArgs e)
+        {
+            List<Task> tasks = SqliteDbAccess.LoadTask();
+            lblLibelle.Content = tasks.FirstOrDefault().Libelle;
+            lblCount.Content = tasks.FirstOrDefault().Count;
+        }
     }
 }
