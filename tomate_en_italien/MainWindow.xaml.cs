@@ -21,14 +21,15 @@ namespace tomate_en_italien
     /// </summary>
     public partial class MainWindow : Window
     {
-
         private static DispatcherTimer MonDispatcheTimer;
         private static TimerPomo MonTimer;
+        public String monTimerName;
+
         public MainWindow()
         {
             InitializeComponent();
             MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
-            MonTimer = new TimerPomo("Développement", 1, util.TypeTimer.Work);
+            MonTimer = new TimerPomo(15, util.TypeTimer.Work);
             MonTimer.setLabelChrono(lblView);
         }
 
@@ -54,18 +55,32 @@ namespace tomate_en_italien
 
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
-
-            // Si toujours pas de timer de lancé
+            // Si aucun timer lancé
             if (!MonTimer.isStart())
             {
                 btnPause.Content = "Pause";
-                // On lance le timer
+                // On lance un timer
+                MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
+                MonTimer = new TimerPomo(25, util.TypeTimer.Work);
+                // Ouvre une popup pour la séléction du nom
+                TimerName tname = new TimerName();
+                tname.Owner = this;
+                tname.Closed += new EventHandler(tname_Closed);
+                tname.Show();
+
                 MonTimer.HandleChrono(MonDispatcheTimer, lblView, ProgressBarTimeLeft);
             }
             else
             {
                 MonTimer.setPause(btnPause);
             }
+        }
+        
+        // Lors de la fermeture de tname
+        private void tname_Closed(object sender, EventArgs e)
+        {
+            name.Content = monTimerName;
+            MonTimer.Name = monTimerName;
         }
 
         private void lblNext_Click(object sender, RoutedEventArgs e)

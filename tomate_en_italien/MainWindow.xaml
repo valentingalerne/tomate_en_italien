@@ -18,6 +18,7 @@
                     <Label x:Name="lblNb" Content="0" HorizontalAlignment="Left" Margin="147,133,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <Button x:Name="btnAddPomodoro" Content="+" HorizontalAlignment="Left" Margin="232,122,0,0" VerticalAlignment="Top" Height="47" Width="44" Grid.Column="1" Click="btnAddPomodoro_Click" BorderBrush="#FF707070"/>
                     <Button x:Name="btnRemovePomodoro" Content="-" HorizontalAlignment="Left" Margin="61,122,0,0" VerticalAlignment="Top" Height="47" Width="44" Click="btnRemovePomodoro_Click" Grid.Column="1" ClickMode="Release" BorderBrush="#FF707070"/>
+                    <Label x:Name="name" Content="Label" HorizontalAlignment="Left" Margin="207,171,0,0" VerticalAlignment="Top" Height="51" Width="92"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TabItemRun" Header="Run">

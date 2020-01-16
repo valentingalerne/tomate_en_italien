@@ -10,7 +10,7 @@ namespace tomate_en_italien
     class TimerPomo
     {
         /// <summary> Attribut Name </summary>
-        private string Name { get; }
+        public string Name { get; set;}
         /// <summary> Attribut Started </summary>
         private Boolean Started { get; set; }
         /// <summary> Attribut Pause </summary>
@@ -37,9 +37,8 @@ namespace tomate_en_italien
         /// <param name="TimerName"></param>
         /// <param name="TimeInMinute"></param>
         /// <param name="TimerType"></param>
-        public TimerPomo(string TimerName, int TimeInMinute, util.TypeTimer TimerType)
+        public TimerPomo(int TimeInMinute, util.TypeTimer TimerType)
         {
-            this.Name = TimerName;
             this.Type = TimerType;
             this.Pause = false;
             this.TimerTime = TimeInMinute;
