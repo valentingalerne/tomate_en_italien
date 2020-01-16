@@ -9,6 +9,10 @@ namespace tomate_en_italien.util
         public int Id { get; set; }
         public String Libelle { get; set; }
         public int Count { get; set; }
-        
+
+        public override string ToString()
+        {
+            return $"{ Libelle }";
+        }
     }
 }

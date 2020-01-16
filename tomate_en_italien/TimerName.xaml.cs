@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using tomate_en_italien.util;
 
 namespace tomate_en_italien
 {
@@ -25,26 +26,34 @@ namespace tomate_en_italien
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
-            // On load les éléments de la liste des noms
-            /////////////////////////////////////////////////////
+            // Récupération des tasks en BDD
+            comboTask.Items.Clear();
+            foreach(Task task in SqliteDbAccess.LoadTask())
+            {
+                comboTask.Items.Add(task);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // On récupère le nom
-            if (txtBox.Text == "")
+            if (txtBox.Text.Trim() == "")
             {
-                name = cbBox.Text;
+                name = comboTask.Text;
             }
             else 
             {
                 name = txtBox.Text;
+
+                // Insertion de la task en BDD
+                Task newTask = new Task();
+                newTask.Libelle = name;
+                SqliteDbAccess.SaveTasks(newTask);
             }
             // On change la variable name de la dont on hérite
             MainWindow mainWindow = Owner as MainWindow;
             mainWindow.monTimerName = name;
-            // On sauvegarde le nom en bdd
-            /////////////////////////////////////////////////////
+
             this.Close();
         }
     }
