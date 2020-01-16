@@ -28,18 +28,18 @@ namespace tomate_en_italien
         public MainWindow()
         {
             InitializeComponent();
+            MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
+            MonTimer = new TimerPomo("Développement", 15, util.TypeTimer.Work);
+            MonTimer.setLabelChrono(lblView);
         }
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // Si toujours pas de timer de lancé
-            if (MonDispatcheTimer == null)
+            if (!MonTimer.isStart())
             {
-                btnPause.Content = "Pause";
-                // On lance un timer
-                MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
-                MonTimer = new TimerPomo("Développement", 25, util.TypeTimer.Work);
+                // On lance le timer
                 MonTimer.HandleChrono(MonDispatcheTimer, lblView, ProgressBarTimeLeft);
             }
             else
