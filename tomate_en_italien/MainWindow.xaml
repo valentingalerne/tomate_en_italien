@@ -5,12 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tomate_en_italien"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Label Content="25:00" x:Name="lblView" HorizontalAlignment="Center" VerticalAlignment="Center" Height="74" Width="98" FontSize="36"/>
-        <Button Content="Play" x:Name="btnPause" HorizontalAlignment="Center" Margin="0,259,0,0" VerticalAlignment="Top" Height="34" Width="66" Click="Button_Click"/>
-        <ProgressBar x:Name="ProgressBarTimeLeft" HorizontalAlignment="Center" Height="27" Margin="0,342,0,0" VerticalAlignment="Top" Width="232"/>
-        <Label x:Name="name" Content="Label" HorizontalAlignment="Center" Margin="0,124,0,0" VerticalAlignment="Top" Height="51" Width="92"/>
-
-    </Grid>
+        Title="MainWindow" Height="650" Width="500">
+  <Grid>
+    <Label Content="25:00" x:Name="lblView" HorizontalAlignment="Center" VerticalAlignment="Top" Height="74" Width="98" FontSize="36" Margin="0,243,0,0"/>
+    <Button Content="Play" x:Name="btnPause" HorizontalAlignment="Center" Margin="0,332,0,0" VerticalAlignment="Top" Height="34" Width="66" Click="Button_Click"/>
+    <ProgressBar x:Name="ProgressBarTimeLeft" HorizontalAlignment="Center" Height="27" Margin="0,382,0,0" VerticalAlignment="Top" Width="232"/>
+    <Label x:Name="name" Content="Label" HorizontalAlignment="Center" Margin="0,124,0,0" VerticalAlignment="Top" Height="51" Width="92"/>
+  </Grid>
 </Window>
