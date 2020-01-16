@@ -22,28 +22,54 @@ namespace tomate_en_italien
     /// </summary>
     public partial class MainWindow : Window
     {
-
         private static DispatcherTimer MonDispatcheTimer;
         private static TimerPomo MonTimer;
+        public String monTimerName;
 
         public MainWindow()
         {
             InitializeComponent();
             MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
-            MonTimer = new TimerPomo("Développement", 15, util.TypeTimer.Work);
+            MonTimer = new TimerPomo(15, util.TypeTimer.Work);
             MonTimer.setLabelChrono(lblView);
 
         }
 
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            // Si toujours pas de timer de lancé
+            List<int> timeArray = new List<int>();
+            int NbPomodoro = Int32.Parse(lblNb.Content.ToString());
+            for (int i = 1; i < NbPomodoro + 1; i++)
+            {
+                timeArray.Add(25);
+                if (i % 4 == 0)
+                {
+                    timeArray.Add(15);
+                }
+                else
+                {
+                    timeArray.Add(5);
+                }
+            }
+            lblNbPomodoroValue.Content = NbPomodoro;
+            TabControl.SelectedItem = TabItemRun;
+        }
+
+        private void btnPlay_Click(object sender, RoutedEventArgs e)
+        {
+            // Si aucun timer lancé
             if (!MonTimer.isStart())
             {
                 btnPause.Content = "Pause";
-                lblView.Content = "14:59";
-                // On lance le timer
+                // On lance un timer
+                MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
+                MonTimer = new TimerPomo(25, util.TypeTimer.Work);
+                // Ouvre une popup pour la séléction du nom
+                TimerName tname = new TimerName();
+                tname.Owner = this;
+                tname.Closed += new EventHandler(tname_Closed);
+                tname.Show();
+
                 MonTimer.HandleChrono(MonDispatcheTimer, lblView, ProgressBarTimeLeft);
             }
             else
@@ -51,12 +77,34 @@ namespace tomate_en_italien
                 MonTimer.setPause(btnPause);
             }
         }
-
-        private void btnLoadDb_Click(object sender, RoutedEventArgs e)
+        
+        // Lors de la fermeture de tname
+        private void tname_Closed(object sender, EventArgs e)
         {
-            List<Task> tasks = SqliteDbAccess.LoadTask();
-            lblLibelle.Content = tasks.FirstOrDefault().Libelle;
-            lblCount.Content = tasks.FirstOrDefault().Count;
+            name.Content = monTimerName;
+            MonTimer.Name = monTimerName;
+        }
+
+        private void lblNext_Click(object sender, RoutedEventArgs e)
+        {
+            MonTimer.resetTimer();
+            MonTimer.setLabelChrono(lblView);
+            btnPause.Content = "Play";
+        }
+
+        private void btnRemovePomodoro_Click(object sender, RoutedEventArgs e)
+        {
+            int NbPomodoro = Int32.Parse(lblNb.Content.ToString());
+            if (NbPomodoro > 0)
+            {
+                lblNb.Content = NbPomodoro - 1;
+            }
+        }
+
+        private void btnAddPomodoro_Click(object sender, RoutedEventArgs e)
+        {
+            int NbPomodoro = Int32.Parse(lblNb.Content.ToString());
+            lblNb.Content = NbPomodoro + 1;
         }
     }
 }
