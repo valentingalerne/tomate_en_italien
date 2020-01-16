@@ -29,7 +29,7 @@ namespace tomate_en_italien
         {
             InitializeComponent();
             MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
-            MonTimer = new TimerPomo("Développement", 15, util.TypeTimer.Work);
+            MonTimer = new TimerPomo(15, util.TypeTimer.Work);
             MonTimer.setLabelChrono(lblView);
         }
 

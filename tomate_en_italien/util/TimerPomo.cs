@@ -8,7 +8,7 @@ namespace tomate_en_italien
 {
     class TimerPomo
     {
-        private string Name { get; }
+        public string Name { get; set; }
         private Boolean Started { get; set; }
         public Boolean Pause { get; set; }
         private int TimerTime { get; set; }
