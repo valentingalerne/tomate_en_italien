@@ -22,16 +22,43 @@ namespace tomate_en_italien
     public partial class MainWindow : Window
     {
 
+        private static DispatcherTimer MonDispatcheTimer;
+        private static TimerPomo MonTimer;
         public MainWindow()
         {
             InitializeComponent();
+            MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
+            MonTimer = new TimerPomo("Développement", 1, util.TypeTimer.Work);
+            MonTimer.setLabelChrono(lblView);
         }
 
-        /*private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnOk_Click(object sender, RoutedEventArgs e)
         {
+            List<int> timeArray = new List<int>();
+            int NbPomodoro = Int32.Parse(lblNb.Content.ToString());
+            for (int i = 1; i < NbPomodoro + 1; i++)
+            {
+                timeArray.Add(25);
+                if (i % 4 == 0)
+                {
+                    timeArray.Add(15);
+                }
+                else
+                {
+                    timeArray.Add(5);
+                }
+            }
+            lblNbPomodoroValue.Content = NbPomodoro;
+            TabControl.SelectedItem = TabItemRun;
+        }
+
+        private void btnPlay_Click(object sender, RoutedEventArgs e)
+        {
+
             // Si toujours pas de timer de lancé
             if (!MonTimer.isStart())
             {
+                btnPause.Content = "Pause";
                 // On lance le timer
                 MonTimer.HandleChrono(MonDispatcheTimer, lblView, ProgressBarTimeLeft);
             }
@@ -39,13 +66,28 @@ namespace tomate_en_italien
             {
                 MonTimer.setPause(btnPause);
             }
-        }*/
+        }
 
-        private void btnTest_Click(object sender, RoutedEventArgs e)
+        private void lblNext_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("ok");
-            TimerWindow timerWindow = new TimerWindow();
-            timerWindow.Show();
+            MonTimer.resetTimer();
+            MonTimer.setLabelChrono(lblView);
+            btnPause.Content = "Play";
+        }
+
+        private void btnRemovePomodoro_Click(object sender, RoutedEventArgs e)
+        {
+            int NbPomodoro = Int32.Parse(lblNb.Content.ToString());
+            if (NbPomodoro > 0)
+            {
+                lblNb.Content = NbPomodoro - 1;
+            }
+        }
+
+        private void btnAddPomodoro_Click(object sender, RoutedEventArgs e)
+        {
+            int NbPomodoro = Int32.Parse(lblNb.Content.ToString());
+            lblNb.Content = NbPomodoro + 1;
         }
     }
 }
