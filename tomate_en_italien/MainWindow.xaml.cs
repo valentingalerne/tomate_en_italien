@@ -22,9 +22,6 @@ namespace tomate_en_italien
     public partial class MainWindow : Window
     {
 
-        private static DispatcherTimer MonDispatcheTimer;
-        private static TimerPomo MonTimer;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -33,12 +30,9 @@ namespace tomate_en_italien
         /*private void Button_Click(object sender, RoutedEventArgs e)
         {
             // Si toujours pas de timer de lancé
-            if (MonDispatcheTimer == null)
+            if (!MonTimer.isStart())
             {
-                btnPause.Content = "Pause";
-                // On lance un timer
-                MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
-                MonTimer = new TimerPomo("Développement", 25, util.TypeTimer.Work);
+                // On lance le timer
                 MonTimer.HandleChrono(MonDispatcheTimer, lblView, ProgressBarTimeLeft);
             }
             else

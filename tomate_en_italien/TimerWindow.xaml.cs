@@ -24,6 +24,9 @@ namespace tomate_en_italien
         public TimerWindow()
         {
             InitializeComponent();
+            MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
+            MonTimer = new TimerPomo("Développement", 15, util.TypeTimer.Work);
+            MonTimer.setLabelChrono(lblView);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

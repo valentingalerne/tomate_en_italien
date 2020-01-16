@@ -9,28 +9,37 @@ namespace tomate_en_italien
     class TimerPomo
     {
         private string Name { get; }
-
-        public Boolean pause { get; set; }
-
+        private Boolean Started { get; set; }
+        public Boolean Pause { get; set; }
+        private int TimerTime { get; set; }
         private util.TypeTimer Type { get; }
-        private DateTime DateStart { get; }
+        private DateTime DateStart { get; set; }
         private DateTime DateEnd { get; set; }
         private DateTime DatePause { get; set; }
         private Label LblChrono { get; set; }
         private ProgressBar ProgressBarTimeLeft { get; set; }
 
 
-        public TimerPomo(string TimerName,int TimeInMinute, util.TypeTimer TimerType)
+        public TimerPomo(string TimerName, int TimeInMinute, util.TypeTimer TimerType)
         {
             this.Name = TimerName;
             this.Type = TimerType;
-            this.DateStart = DateTime.Now;
-            this.DateEnd = DateTime.Now.AddMinutes(TimeInMinute);
-            this.pause = false;
+            this.Pause = false;
+            this.TimerTime = TimeInMinute;
+            this.Started = false;
+        }
+
+        public void setLabelChrono(Label lblChrono)
+        {
+            var Tl = DateEnd.Subtract(DateTime.Now);
+            lblChrono.Content = TimerTime + ":00" ;
         }
 
         public void HandleChrono(System.Windows.Threading.DispatcherTimer dispatcherTimer, Label lblChrono, ProgressBar ProgressBarTimeLeft)
         {
+            this.DateStart = DateTime.Now;
+            this.DateEnd = DateTime.Now.AddMinutes(this.TimerTime);
+            this.Started = true;
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(UpdateChronoLabel);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
@@ -42,7 +51,7 @@ namespace tomate_en_italien
 
         private void UpdateChronoLabel(object sender, EventArgs e)
         {
-            if(!pause)
+            if(!Pause)
             {
                 // Si il reste encore du temps dans le timer
                 if (DateTime.Now.CompareTo(DateEnd) == -1)
@@ -53,8 +62,8 @@ namespace tomate_en_italien
                     this.LblChrono.Content = TimeLeft;
                     //Met à jour la ProgressBar
                     var timeLeftSeconds = Tl.Minutes * 60 + Tl.Seconds;
-                    var timeSpend = 25 * 60 - timeLeftSeconds;
-                    ProgressBarTimeLeft.Value = timeSpend * 100 / (25 * 60);
+                    var timeSpend = this.TimerTime * 60 - timeLeftSeconds;
+                    ProgressBarTimeLeft.Value = timeSpend * 100 / (this.TimerTime * 60);
                 }
                 
             }
@@ -63,20 +72,25 @@ namespace tomate_en_italien
 
         public void setPause(Button btnPause)
         {
-            if (!this.pause)
+            if (!this.Pause)
             {
-                this.pause = true;
+                this.Pause = true;
                 this.DatePause = DateTime.Now;
                 btnPause.Content = "Play";
             } else
             {
-                this.pause = false;
+                this.Pause = false;
                 var diff = DateTime.Now.Subtract(DatePause);
                 DateEnd = DateEnd.Add(diff);
                 btnPause.Content = "Pause";
             }
             
             
+        }
+
+        public Boolean isStart()
+        {
+            return this.Started;
         }
     }
 }

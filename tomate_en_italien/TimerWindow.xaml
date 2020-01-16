@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tomate_en_italien"
         mc:Ignorable="d"
-        Title="TimerWindow" Height="450" Width="800">
+        Title="TimerWindow" Height="650" Width="500">
     <Grid>
         <Label Content="25:00" x:Name="lblView" HorizontalAlignment="Center" VerticalAlignment="Center" Height="74" Width="98" FontSize="36"/>
-        <Button Content="Play" x:Name="btnPause" HorizontalAlignment="Center" Margin="0,259,0,0" VerticalAlignment="Top" Height="34" Width="66" Click="Button_Click"/>
+        <Button Content="Play" x:Name="btnPause" HorizontalAlignment="Center" Margin="0,241,0,0" VerticalAlignment="Top" Height="34" Width="66" Click="Button_Click"/>
         <ProgressBar x:Name="ProgressBarTimeLeft" HorizontalAlignment="Center" Height="27" Margin="0,342,0,0" VerticalAlignment="Top" Width="232"/>
     </Grid>
 </Window>
