@@ -89,19 +89,22 @@ namespace tomate_en_italien
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
+            var hasNext = true;
             if (indexTimeArray < timeArray.Count - 1 && boolTimer == false)
             {
                 indexTimeArray++;
                 lblView.Content = timeArray[indexTimeArray];
+                MonTimer.resetTimer(timeArray[indexTimeArray]);
+                MonTimer.setLabelChrono(lblView);
+                btnPause.Content = "Play";
             }
             else
             {
+                hasNext = false;
                 indexTimeArray = 0;
                 boolTimer = true;
             }
-            MonTimer.resetTimer(timeArray[indexTimeArray]);
-            MonTimer.setLabelChrono(lblView);
-            btnPause.Content = "Play";
+            btnNext.IsEnabled = hasNext;
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
