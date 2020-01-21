@@ -41,6 +41,7 @@ namespace tomate_en_italien
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             int NbPomodoro = Int32.Parse(lblNb.Content.ToString());
+            timeArray.Clear();
             for (int i = 1; i < NbPomodoro + 1; i++)
             {
                 timeArray.Add(25);
@@ -65,15 +66,24 @@ namespace tomate_en_italien
                 btnPause.Content = "Pause";
                 // On lance un timer
                 MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
-                var time = timeArray[indexTimeArray];
-
+                var time = 0;
+                try
+                {
+                    time = timeArray[indexTimeArray];
+                }
+                catch (Exception error)
+                {
+                    time = 25;
+                }
                 MonTimer = new TimerPomo(time, util.TypeTimer.Work);
-                // Ouvre une popup pour la séléction du nom
-                TimerName tname = new TimerName();
-                tname.Owner = this;
-                tname.Closed += new EventHandler(tname_Closed);
-                tname.Show();
-
+                if (MonTimer.isWork())
+                {
+                    // Ouvre une popup pour la séléction du nom
+                    TimerName tname = new TimerName();
+                    tname.Owner = this;
+                    tname.Closed += new EventHandler(tname_Closed);
+                    tname.Show();
+                }
                 MonTimer.HandleChrono(MonDispatcheTimer, lblView, ProgressBarTimeLeft);
             }
             else
@@ -116,7 +126,16 @@ namespace tomate_en_italien
         {
             boolTimer = false;
             indexTimeArray = 0;
-            MonTimer.resetTimer(timeArray[indexTimeArray]);
+            var time = 0;
+            try
+            {
+                time = timeArray[indexTimeArray];
+            }
+            catch (Exception error)
+            {
+                time = 25;
+            }
+            MonTimer.resetTimer(time);
             MonTimer.setLabelChrono(lblView);
             btnNext.IsEnabled = true;
             btnPause.Content = "Play";

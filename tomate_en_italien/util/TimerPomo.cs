@@ -18,7 +18,7 @@ namespace tomate_en_italien
         /// <summary> Attribut TimerTime </summary>
         private int TimerTime { get; set; }
         /// <summary> Attribut Type </summary>
-        private util.TypeTimer Type { get; }
+        private util.TypeTimer Type { get; set; }
         /// <summary> Attribut DateStart </summary>
         private DateTime DateStart { get; set; }
         /// <summary> Attribut DateEnd </summary>
@@ -40,10 +40,10 @@ namespace tomate_en_italien
         public TimerPomo(int TimeInMinute, util.TypeTimer TimerType)
         {
             // TODO retirer le timerType du constructeur
-            this.Type = GetTimerType();
             this.Pause = false;
             this.TimerTime = TimeInMinute;
             this.Started = false;
+            this.Type = GetTimerType();
         }
 
         public void setLabelChrono(Label lblChrono)
@@ -69,17 +69,28 @@ namespace tomate_en_italien
 
         private util.TypeTimer GetTimerType()
         {
+            util.TypeTimer typeTimer;
             switch(this.TimerTime)
             {
                 case 5:
-                    return util.TypeTimer.Short_Break;
+                    typeTimer = util.TypeTimer.Short_Break;
+                    break;
                 case 15:
-                    return util.TypeTimer.Long_Break;
+                    typeTimer = util.TypeTimer.Long_Break;
+                    break;
                 case 25:
-                    return util.TypeTimer.Work;
+                    typeTimer = util.TypeTimer.Work;
+                    break;
                 default:
-                    return util.TypeTimer.Pause;
+                    typeTimer = util.TypeTimer.Pause;
+                    break;
             }
+            return typeTimer;
+        }
+
+        public Boolean isWork()
+        {
+            return this.Type == util.TypeTimer.Work;
         }
 
         private void UpdateChronoLabel(object sender, EventArgs e)
@@ -105,7 +116,8 @@ namespace tomate_en_italien
 
         public void resetTimer(int TimeInMinute)
         {
-            if(this.dispatcherTimer != null)
+            this.Type = GetTimerType();
+            if (this.dispatcherTimer != null)
             {
                 this.dispatcherTimer.Stop();
             }
