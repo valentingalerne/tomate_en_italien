@@ -25,6 +25,7 @@ namespace tomate_en_italien
         private static DispatcherTimer MonDispatcheTimer;
         private static TimerPomo MonTimer;
         public String monTimerName;
+        public Boolean boolTimer = false;
         public List<int> timeArray = new List<int>();
         public int indexTimeArray = 0;
 
@@ -86,23 +87,37 @@ namespace tomate_en_italien
             MonTimer.Name = monTimerName;
         }
 
-        private void lblNext_Click(object sender, RoutedEventArgs e)
+        private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             var hasNext = true;
-            if (indexTimeArray < timeArray.Count - 1)
+            if (indexTimeArray < timeArray.Count - 1 && boolTimer == false)
             {
                 indexTimeArray++;
                 lblView.Content = timeArray[indexTimeArray];
                 MonTimer.resetTimer(timeArray[indexTimeArray]);
                 MonTimer.setLabelChrono(lblView);
                 btnPause.Content = "Play";
+                if (indexTimeArray == timeArray.Count - 1)
+                {
+                    hasNext = false;
+                }
             }
             else
             {
-                hasNext = false;
+                boolTimer = true;
                 indexTimeArray = 0;
             }
             btnNext.IsEnabled = hasNext;
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            boolTimer = false;
+            indexTimeArray = 0;
+            MonTimer.resetTimer(timeArray[indexTimeArray]);
+            MonTimer.setLabelChrono(lblView);
+            btnNext.IsEnabled = true;
+            btnPause.Content = "Play";
         }
 
         private void btnRemovePomodoro_Click(object sender, RoutedEventArgs e)
