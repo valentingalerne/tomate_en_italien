@@ -87,11 +87,13 @@ namespace tomate_en_italien
 
         }
 
-        public void resetTimer()
+        public void resetTimer(int TimeInMinute)
         {
             this.dispatcherTimer.Stop();
             this.ProgressBarTimeLeft.Value = 0;
+            this.Pause = false;
             this.Started = false;
+            this.TimerTime = TimeInMinute;
         }
 
         public void setPause(Button btnPause)

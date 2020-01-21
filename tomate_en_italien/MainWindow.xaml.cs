@@ -25,19 +25,20 @@ namespace tomate_en_italien
         private static DispatcherTimer MonDispatcheTimer;
         private static TimerPomo MonTimer;
         public String monTimerName;
+        public List<int> timeArray = new List<int>();
+        public int indexTimeArray = 0;
 
         public MainWindow()
         {
             InitializeComponent();
             MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
-            MonTimer = new TimerPomo(15, util.TypeTimer.Work);
+            MonTimer = new TimerPomo(25, util.TypeTimer.Work);
             MonTimer.setLabelChrono(lblView);
 
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            List<int> timeArray = new List<int>();
             int NbPomodoro = Int32.Parse(lblNb.Content.ToString());
             for (int i = 1; i < NbPomodoro + 1; i++)
             {
@@ -87,7 +88,16 @@ namespace tomate_en_italien
 
         private void lblNext_Click(object sender, RoutedEventArgs e)
         {
-            MonTimer.resetTimer();
+            if (indexTimeArray < timeArray.Count - 1)
+            {
+                indexTimeArray++;
+                lblView.Content = timeArray[indexTimeArray];
+            }
+            else
+            {
+                indexTimeArray = 0;
+            }
+            MonTimer.resetTimer(timeArray[indexTimeArray]);
             MonTimer.setLabelChrono(lblView);
             btnPause.Content = "Play";
         }
