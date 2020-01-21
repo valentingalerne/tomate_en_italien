@@ -39,7 +39,8 @@ namespace tomate_en_italien
         /// <param name="TimerType"></param>
         public TimerPomo(int TimeInMinute, util.TypeTimer TimerType)
         {
-            this.Type = TimerType;
+            // TODO retirer le timerType du constructeur
+            this.Type = GetTimerType();
             this.Pause = false;
             this.TimerTime = TimeInMinute;
             this.Started = false;
@@ -64,6 +65,21 @@ namespace tomate_en_italien
             this.LblChrono = lblChrono;
             this.ProgressBarTimeLeft = ProgressBarTimeLeft;
 
+        }
+
+        private util.TypeTimer GetTimerType()
+        {
+            switch(this.TimerTime)
+            {
+                case 5:
+                    return util.TypeTimer.Short_Break;
+                case 15:
+                    return util.TypeTimer.Long_Break;
+                case 25:
+                    return util.TypeTimer.Work;
+                default:
+                    return util.TypeTimer.Pause;
+            }
         }
 
         private void UpdateChronoLabel(object sender, EventArgs e)

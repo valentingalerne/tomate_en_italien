@@ -36,20 +36,23 @@ namespace tomate_en_italien
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Task newTask = new Task();
+            var name = "";
             // On récupère le nom
             if (txtBox.Text.Trim() == "")
             {
                 name = comboTask.Text;
+                newTask.Libelle = name;
             }
             else 
             {
                 name = txtBox.Text;
 
                 // Insertion de la task en BDD
-                Task newTask = new Task();
                 newTask.Libelle = name;
                 SqliteDbAccess.SaveTasks(newTask);
             }
+            SqliteDbAccess.UpdateCountTask(newTask);
             // On change la variable name de la dont on hérite
             MainWindow mainWindow = Owner as MainWindow;
             mainWindow.monTimerName = name;

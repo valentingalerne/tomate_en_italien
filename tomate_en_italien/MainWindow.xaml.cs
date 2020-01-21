@@ -65,7 +65,9 @@ namespace tomate_en_italien
                 btnPause.Content = "Pause";
                 // On lance un timer
                 MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
-                MonTimer = new TimerPomo(25, util.TypeTimer.Work);
+                var time = timeArray[indexTimeArray];
+
+                MonTimer = new TimerPomo(time, util.TypeTimer.Work);
                 // Ouvre une popup pour la séléction du nom
                 TimerName tname = new TimerName();
                 tname.Owner = this;
