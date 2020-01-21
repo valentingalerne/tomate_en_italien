@@ -28,7 +28,7 @@
                     <Label x:Name="lblNbPomodoroValue" Content="0" HorizontalAlignment="Left" Margin="186,132,0,0" VerticalAlignment="Top" Width="50"/>
                     <Label x:Name="lblNbPomodoro" Content="Nombre de pomodoro : " HorizontalAlignment="Left" Margin="51,132,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="name" Content="Nom du pomo" HorizontalAlignment="Center" Margin="0,41,0,0" VerticalAlignment="Top" Height="46" Width="98"/>
-                    <Button x:Name="lblNext" Content="Next" HorizontalAlignment="Left" Margin="323,241,0,0" VerticalAlignment="Top" Height="34" Width="40" Click="lblNext_Click"/>
+                    <Button x:Name="btnNext" Content="Next" HorizontalAlignment="Left" Margin="323,241,0,0" VerticalAlignment="Top" Height="34" Width="40" Click="lblNext_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>
