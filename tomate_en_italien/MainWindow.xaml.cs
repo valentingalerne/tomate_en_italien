@@ -97,12 +97,15 @@ namespace tomate_en_italien
                 MonTimer.resetTimer(timeArray[indexTimeArray]);
                 MonTimer.setLabelChrono(lblView);
                 btnPause.Content = "Play";
+                if (indexTimeArray == timeArray.Count - 1)
+                {
+                    hasNext = false;
+                }
             }
             else
             {
-                hasNext = false;
-                indexTimeArray = 0;
                 boolTimer = true;
+                indexTimeArray = 0;
             }
             btnNext.IsEnabled = hasNext;
         }
@@ -113,6 +116,7 @@ namespace tomate_en_italien
             indexTimeArray = 0;
             MonTimer.resetTimer(timeArray[indexTimeArray]);
             MonTimer.setLabelChrono(lblView);
+            btnNext.IsEnabled = true;
             btnPause.Content = "Play";
         }
 
