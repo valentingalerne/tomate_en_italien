@@ -29,6 +29,14 @@ namespace tomate_en_italien
             }
         }
 
+        public static void UpdateCountTask(Task task)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("UPDATE TASK SET count=count+1 WHERE libelle= @Libelle", task);
+            }
+        }
+
         private static string LoadConnectionString(string id= "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
