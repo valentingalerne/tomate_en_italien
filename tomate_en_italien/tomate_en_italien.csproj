@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="tomateEnItalienDB.db" />
+    <None Remove="tomate_en_italien_logo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,10 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="img\tomate_en_italien_logo.png" />
   </ItemGroup>
 
 </Project>

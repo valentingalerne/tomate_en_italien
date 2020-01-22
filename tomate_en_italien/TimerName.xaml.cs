@@ -24,7 +24,7 @@ namespace tomate_en_italien
         public TimerName()
         {
             InitializeComponent();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             // Récupération des tasks en BDD
             comboTask.Items.Clear();
@@ -34,7 +34,13 @@ namespace tomate_en_italien
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Save la nouvelle task en bdd si besoin
+        /// Incrémente le nombre d'exécution de cette task et ferme cette fenêtre
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveTask(object sender, RoutedEventArgs e)
         {
             Task newTask = new Task();
             var name = "";
@@ -48,9 +54,12 @@ namespace tomate_en_italien
             {
                 name = txtBox.Text;
 
-                // Insertion de la task en BDD
+                // Insertion de la task en BDD si elle n'existe pas
                 newTask.Libelle = name;
-                SqliteDbAccess.SaveTasks(newTask);
+                try
+                {
+                    SqliteDbAccess.SaveTasks(newTask);
+                } catch(Exception) { }
             }
             SqliteDbAccess.UpdateCountTask(newTask);
             // On change la variable name de la dont on hérite

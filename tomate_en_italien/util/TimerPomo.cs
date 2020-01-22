@@ -9,8 +9,6 @@ namespace tomate_en_italien
     /// <summary> Classe TimerPomo </summary>
     class TimerPomo
     {
-        /// <summary> Attribut Name </summary>
-        public string Name { get; set; }
         /// <summary> Attribut Started </summary>
         private Boolean Started { get; set; }
         /// <summary> Attribut Pause </summary>
@@ -34,9 +32,8 @@ namespace tomate_en_italien
 
 
         /// <summary> Constructeur de la classe TimerPomo </summary>
-        /// <param name="TimerName"></param>
-        /// <param name="TimeInMinute"></param>
-        /// <param name="TimerType"></param>
+        /// <param name="TimeInMinute">Temps du chrono</param>
+        /// <param name="TimerType">Type de timer (Deprecated)</param>
         public TimerPomo(int TimeInMinute, util.TypeTimer TimerType)
         {
             // TODO retirer le timerType du constructeur
@@ -46,16 +43,26 @@ namespace tomate_en_italien
             this.Type = GetTimerType();
         }
 
+        /// <summary>
+        /// CHange le label du chrono
+        /// </summary>
+        /// <param name="lblChrono"></param>
         public void setLabelChrono(Label lblChrono)
         {
             var Tl = DateEnd.Subtract(DateTime.Now);
             lblChrono.Content = TimerTime + ":00";
         }
 
+        /// <summary>
+        /// Gère l'affichage des données lorsque le chrono se lance
+        /// </summary>
+        /// <param name="dispatcherTimer"></param>
+        /// <param name="lblChrono"></param>
+        /// <param name="ProgressBarTimeLeft"></param>
         public void HandleChrono(DispatcherTimer dispatcherTimer, Label lblChrono, ProgressBar ProgressBarTimeLeft)
         {
             this.DateStart = DateTime.Now;
-            this.DateEnd = DateTime.Now.AddMinutes(this.TimerTime);
+            this.DateEnd = DateTime.Now.AddMinutes(this.TimerTime).AddSeconds(1);
             this.Started = true;
             this.dispatcherTimer = dispatcherTimer;
             this.dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
@@ -67,6 +74,10 @@ namespace tomate_en_italien
 
         }
 
+        /// <summary>
+        /// Récupération du type de chrono en fonction du temps set
+        /// </summary>
+        /// <returns>util.TypeTimer</returns>
         private util.TypeTimer GetTimerType()
         {
             util.TypeTimer typeTimer;
@@ -88,11 +99,20 @@ namespace tomate_en_italien
             return typeTimer;
         }
 
-        public Boolean isWork()
+        /// <summary>
+        /// Check si le timer est set sur work
+        /// </summary>
+        /// <returns>Boolean</returns>
+        public Boolean IsWork()
         {
             return this.Type == util.TypeTimer.Work;
         }
 
+        /// <summary>
+        /// Update le label du chrono/ la progressbar s'il est pas en pause
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateChronoLabel(object sender, EventArgs e)
         {
             if (!Pause)
@@ -102,7 +122,7 @@ namespace tomate_en_italien
                 {
                     var Tl = DateEnd.Subtract(DateTime.Now);
                     // Met à jour le compteur
-                    var TimeLeft = Tl.Minutes + ":" + Tl.Seconds;
+                    var TimeLeft = Tl.Minutes + ":" + Tl.Seconds.ToString("00");
                     this.LblChrono.Content = TimeLeft;
                     //Met à jour la ProgressBar
                     var timeLeftSeconds = Tl.Minutes * 60 + Tl.Seconds;
@@ -114,6 +134,10 @@ namespace tomate_en_italien
 
         }
 
+        /// <summary>
+        /// Stop puis reset le temps du timer et la progress bar
+        /// </summary>
+        /// <param name="TimeInMinute"></param>
         public void resetTimer(int TimeInMinute)
         {
             this.Type = GetTimerType();
@@ -130,6 +154,10 @@ namespace tomate_en_italien
             this.TimerTime = TimeInMinute;
         }
 
+        /// <summary>
+        /// Mets le chrono en pause
+        /// </summary>
+        /// <param name="btnPause"></param>
         public void setPause(Button btnPause)
         {
             if (!this.Pause)
@@ -148,6 +176,10 @@ namespace tomate_en_italien
 
         }
 
+        /// <summary>
+        /// Check si le chrono est lancé
+        /// </summary>
+        /// <returns></returns>
         public Boolean isStart()
         {
             return this.Started;

@@ -38,7 +38,12 @@ namespace tomate_en_italien
 
         }
 
-        private void btnOk_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Confirme le nombre de pomodoro
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ConfirmNbPomodoro(object sender, RoutedEventArgs e)
         {
             int NbPomodoro = Int32.Parse(lblNb.Content.ToString());
             timeArray.Clear();
@@ -58,30 +63,35 @@ namespace tomate_en_italien
             TabControl.SelectedItem = TabItemRun;
         }
 
-        private void btnPlay_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Start le pomodoro ou le met en pause
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StartPomodoro(object sender, RoutedEventArgs e)
         {
-            // Si aucun timer lancé
+            // Check si le timer est lancé
             if (!MonTimer.isStart())
             {
                 btnPause.Content = "Pause";
                 // On lance un timer
-                MonDispatcheTimer = new System.Windows.Threading.DispatcherTimer();
+                MonDispatcheTimer = new DispatcherTimer();
                 var time = 0;
                 try
                 {
                     time = timeArray[indexTimeArray];
                 }
-                catch (Exception error)
+                catch (Exception)
                 {
                     time = 25;
                 }
                 MonTimer = new TimerPomo(time, util.TypeTimer.Work);
-                if (MonTimer.isWork())
+                if (MonTimer.IsWork())
                 {
                     // Ouvre une popup pour la séléction du nom
                     TimerName tname = new TimerName();
                     tname.Owner = this;
-                    tname.Closed += new EventHandler(tname_Closed);
+                    tname.Closed += new EventHandler(OnClosePomoSaisieName);
                     tname.Show();
                 }
                 MonTimer.HandleChrono(MonDispatcheTimer, lblView, ProgressBarTimeLeft);
@@ -92,14 +102,22 @@ namespace tomate_en_italien
             }
         }
         
-        // Lors de la fermeture de tname
-        private void tname_Closed(object sender, EventArgs e)
+        /// <summary>
+        /// Change le nom du pomo à la fermeture de la fenêtre de saisie
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnClosePomoSaisieName(object sender, EventArgs e)
         {
-            name.Content = monTimerName;
-            MonTimer.Name = monTimerName;
+            PomoName.Content = monTimerName;
         }
 
-        private void btnNext_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Passe au pomodoro suivant
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NextPomodoro(object sender, RoutedEventArgs e)
         {
             var hasNext = true;
             if (indexTimeArray < timeArray.Count - 1 && boolTimer == false)
@@ -122,26 +140,27 @@ namespace tomate_en_italien
             btnNext.IsEnabled = hasNext;
         }
 
-        private void btnReset_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Reset le Pomodoro
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ResetPomodoro(object sender, RoutedEventArgs e)
         {
             boolTimer = false;
             indexTimeArray = 0;
-            var time = 0;
-            try
-            {
-                time = timeArray[indexTimeArray];
-            }
-            catch (Exception error)
-            {
-                time = 25;
-            }
-            MonTimer.resetTimer(time);
+            MonTimer.resetTimer(25);
             MonTimer.setLabelChrono(lblView);
             btnNext.IsEnabled = true;
             btnPause.Content = "Play";
         }
 
-        private void btnRemovePomodoro_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Augmente le nombre de pomodoro au click sur le bouton
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DecreaseNbPomo(object sender, RoutedEventArgs e)
         {
             int NbPomodoro = Int32.Parse(lblNb.Content.ToString());
             if (NbPomodoro > 0)
@@ -150,10 +169,34 @@ namespace tomate_en_italien
             }
         }
 
-        private void btnAddPomodoro_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Réduit le nombre de pomodoro au click sur le bouton
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void IncreaseNbPomo(object sender, RoutedEventArgs e)
         {
             int NbPomodoro = Int32.Parse(lblNb.Content.ToString());
             lblNb.Content = NbPomodoro + 1;
+        }
+        
+        /// <summary>
+        /// Charge l'historique des pomodoro
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoadHistorique(object sender, RoutedEventArgs e)
+        {
+            viewHistorique.Items.Clear();
+            var taskList = SqliteDbAccess.LoadTask();
+            foreach (Task task in taskList)
+            {
+                viewHistorique.Items.Add($"{task.Libelle} {task.Count}");
+            }
+            if(taskList.Count == 0)
+            {
+                viewHistorique.Items.Add($"No task found");
+            }
         }
     }
 }
