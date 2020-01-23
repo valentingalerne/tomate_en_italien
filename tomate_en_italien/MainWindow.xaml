@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tomate_en_italien"
-        mc:Ignorable="d"
+        mc:Ignorable="d"        
+        ResizeMode="NoResize"
         Title="Tomate En Italien" Height="450" Width="400" Icon="./img/tomate_en_italien_logo.png">
     <Grid>
         <TabControl x:Name="TabControl" Background="#FF325D79">
@@ -13,22 +14,22 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="293*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnOk" Content="Ok" HorizontalAlignment="Center" Margin="0,218,0,0" VerticalAlignment="Top" Click="ConfirmNbPomodoro" Height="30" Width="86" Background="#FF4D648D" BorderBrush="#FF283655" FontWeight="Bold"/>
-                    <Label x:Name="lblNb" Content="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,138,0,0" VerticalAlignment="Top" Height="26" Width="28" Background="#FF4D648D" BorderBrush="#FF283655" FontWeight="Bold"/>
-                    <Button x:Name="btnAddPomodoro" Content="+" HorizontalAlignment="Left" Margin="284,128,0,0" VerticalAlignment="Top" Height="47" Width="44" Click="IncreaseNbPomo" BorderBrush="#FF283655" Background="#FF4D648D" FontSize="20" FontWeight="Bold"/>
-                    <Button x:Name="btnRemovePomodoro" Content="-" HorizontalAlignment="Left" Margin="69,128,0,0" VerticalAlignment="Top" Height="47" Width="44" Click="DecreaseNbPomo" ClickMode="Release" BorderBrush="#FF283655" Background="#FF4D648D" FontSize="20" FontWeight="Bold"/>
+                    <Button x:Name="btnOk" Content="Ok" HorizontalAlignment="Center" Margin="0,229,0,0" VerticalAlignment="Top" Click="ConfirmNbPomodoro" Height="40" Width="80" Background="#FF4D648D" BorderBrush="#FF283655" FontWeight="Bold" BorderThickness="1,1,1,1"/>
+                    <Label x:Name="lblNb" Content="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,154,0,0" VerticalAlignment="Top" Height="30" Width="40" Background="#FF4D648D" BorderBrush="#FF283655" FontWeight="Bold"/>
+                    <Button x:Name="btnAddPomodoro" Content="+" HorizontalAlignment="Left" Margin="277,149,0,0" VerticalAlignment="Top" Height="40" Width="40" Click="IncreaseNbPomo" BorderBrush="#FF283655" Background="#FF4D648D" FontSize="20" FontWeight="Bold"/>
+                    <Button x:Name="btnRemovePomodoro" Content="-" HorizontalAlignment="Left" Margin="77,149,0,0" VerticalAlignment="Top" Height="40" Width="40" Click="DecreaseNbPomo" ClickMode="Release" BorderBrush="#FF283655" Background="#FF4D648D" FontSize="20" FontWeight="Bold"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TabItemRun" Header="Run" BorderBrush="White" Background="#FFD0E1F9">
                 <Grid Background="#FF1E1F26">
-                    <Label Content="25:00" x:Name="lblView" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Height="59" Width="98" FontSize="36" Margin="0,170,0,0" Foreground="White"/>
-                    <Button Content="Play" x:Name="btnPause" HorizontalAlignment="Center" Margin="0,238,0,0" VerticalAlignment="Top" Height="34" Width="98" Click="StartPomodoro" BorderBrush="#FF283655" Background="#FF4D648D" FontWeight="Bold"/>
-                    <ProgressBar x:Name="ProgressBarTimeLeft" HorizontalAlignment="Center" Height="27" VerticalAlignment="Top" Width="300" Margin="0,110,0,0" Foreground="#FFD32828"/>
-                    <Label x:Name="lblNbPomodoroValue" Content="0" HorizontalAlignment="Left" Margin="224,40,0,0" VerticalAlignment="Top" Width="50" Foreground="White" FontWeight="Bold"/>
-                    <Label x:Name="lblNbPomodoro" Content="Loop : " HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                    <Label x:Name="PomoName" Content="Nom du pomo" HorizontalAlignment="Left" Margin="41,40,0,0" VerticalAlignment="Top" Height="26" Width="98" Foreground="White" FontWeight="Bold"/>
-                    <Button x:Name="btnNext" Content="Next" HorizontalAlignment="Left" Margin="300,238,0,0" VerticalAlignment="Top" Height="34" Width="40" Click="NextPomodoro" Background="#FF4D648D" BorderBrush="#FF283655" FontWeight="Bold"/>
-                    <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="54,238,0,0" VerticalAlignment="Top" Height="34" Width="40" Click="ResetPomodoro" FontWeight="Bold" Background="#FF4D648D" BorderBrush="#FF283655"/>
+                    <Label Content="25:00" x:Name="lblView" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="60" Width="120" FontSize="36" Foreground="White"/>
+                    <Button Content="Play" x:Name="btnPause" HorizontalAlignment="Center" Margin="0,249,0,0" VerticalAlignment="Top" Height="40" Width="80" Click="StartPomodoro" BorderBrush="#FF283655" Background="#FF4D648D" FontWeight="Bold"/>
+                    <ProgressBar x:Name="ProgressBarTimeLeft" HorizontalAlignment="Center" Height="30" VerticalAlignment="Top" Width="300" Margin="0,109,0,0" Foreground="#FFD32828"/>
+                    <Label x:Name="lblNbPomodoroValue" Content="0" HorizontalAlignment="Left" Margin="214,59,0,0" VerticalAlignment="Top" Width="50" Foreground="White" FontWeight="Bold" Height="30"/>
+                    <Label x:Name="lblNbPomodoro" Content="Loop :" HorizontalAlignment="Left" Margin="166,59,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Height="30"/>
+                    <Label x:Name="PomoName" Content="Nom du pomo" HorizontalAlignment="Left" Margin="47,59,0,0" VerticalAlignment="Top" Height="30" Width="98" Foreground="White" FontWeight="Bold"/>
+                    <Button x:Name="btnNext" Content="Next" HorizontalAlignment="Left" Margin="277,249,0,0" VerticalAlignment="Top" Height="40" Width="40" Click="NextPomodoro" Background="#FF4D648D" BorderBrush="#FF283655" FontWeight="Bold"/>
+                    <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="77,249,0,0" VerticalAlignment="Top" Height="40" Width="40" Click="ResetPomodoro" FontWeight="Bold" Background="#FF4D648D" BorderBrush="#FF283655"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TabItemHistorique" BorderBrush="White" Background="#FFD0E1F9">

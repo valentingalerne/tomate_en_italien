@@ -45,6 +45,7 @@ namespace tomate_en_italien
         /// <param name="e"></param>
         private void ConfirmNbPomodoro(object sender, RoutedEventArgs e)
         {
+            ResetPomodoro(sender, e);
             int NbPomodoro = Int32.Parse(lblNb.Content.ToString());
             timeArray.Clear();
             for (int i = 1; i < NbPomodoro + 1; i++)
